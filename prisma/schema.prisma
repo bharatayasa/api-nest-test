@@ -21,8 +21,10 @@ enum Role {
 model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
+  name      String
+  email     String
   password  String
-  role      Role
+  role      Role     @default(user)
   createdAt DateTime @default(now())
   news      News[]   @relation("UserNews")
 }
