@@ -9,20 +9,24 @@ export class UsersService {
     constructor(private prisma: PrismaService) {} 
 
     async findAll(): Promise<User[]> {
-        return this.prisma.user.findMany({
+        const findAllUsers = this.prisma.user.findMany({
             where: {
                 deletedAt: null
             }
         });
+
+        return findAllUsers
     }
 
     async findOne(id: number): Promise<User[]> {
-        return this.prisma.user.findMany({
+        const getUserById = this.prisma.user.findMany({
             where: {
                 id,
                 deletedAt: null
             }
         });
+
+        return getUserById
     }
 
     async createUser(data: UserDto): Promise<User> {
@@ -48,32 +52,29 @@ export class UsersService {
         if (data.password) {
             data.password = await bcrypt.hash(data.password, saltRounds);
         }
-    
-        try {
-            const updatedUser = await this.prisma.user.update({
-                where: { id },
-                data: {
-                    username: data.username,
-                    name: data.name,
-                    email: data.email,
-                    role: data.role,
-                    password: data.password,
-                },
-            });
-    
+
+        const updatedUser = await this.prisma.user.update({
+            where: { id },
+            data: {
+                username: data.username,
+                name: data.name,
+                email: data.email,
+                role: data.role,
+                password: data.password,
+            }
+        });
+
             return updatedUser;
-        } catch (error) {
-            console.error('Error updating user:', error);
-            return null;
-        }
     }
 
     async softDelete(id: number): Promise<User>{
-        return this.prisma.user.update({
+        const deleteUser = this.prisma.user.update({
             where: {id}, 
             data: {
                 deletedAt: new Date()
             } 
         })
+
+        return  deleteUser
     }
 }

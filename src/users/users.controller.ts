@@ -49,9 +49,11 @@ export class UsersController {
     @Get(':id')
     @Roles('admin')
     @UseGuards(AuthGuard)
-    async getUserById(@Param('id') id: number, @Res() res: Response){
+    async getUserById(@Param('id') id: string, @Res() res: Response){
         try {
-            const users = await this.usersService.findOne(Number(id));
+            const numericId = Number(id);
+
+            const users = await this.usersService.findOne(Number(numericId));
 
             if (!users) {
                 return res.status(HttpStatus.NOT_FOUND).json({
@@ -60,14 +62,14 @@ export class UsersController {
                 });
             }
 
-            const formatData = users.map(user => ({
-                username : user.username, 
-                name     : user.name,
-                email    : user.email,
-                role     : user.role, 
-                createdAt: moment(user.createdAt).format('YYYY-MM-DD'),
-                updatedAt: moment(user.updatedAt).format('YYYY-MM-DD'),
-            }))
+            const formatData = {
+                username : users[0].username, 
+                name     : users[0].name,
+                email    : users[0].email,
+                role     : users[0].role, 
+                createdAt: moment(users[0].createdAt).format('YYYY-MM-DD'),
+                updatedAt: moment(users[0].updatedAt).format('YYYY-MM-DD'),
+            }
 
             return res.status(HttpStatus.OK).json({
                 message: "success to get data by id", 
@@ -154,19 +156,15 @@ export class UsersController {
     async deleteUser(@Param('id') id: string, @Res() res: Response) {
         try {
             const numericId = Number(id);
-
             if (isNaN(numericId)) {
                 return res.status(HttpStatus.BAD_REQUEST).json({
                     message: "Invalid ID format",
                 });
             }
-
             const deletedUser = await this.usersService.softDelete(numericId);
-
             const formatData = {
                 deletedAt: moment(deletedUser.deletedAt).format('YYYY-MM-DD'),
             };
-
             return res.status(HttpStatus.OK).json({
                 message: "User deleted successfully", 
                 data: formatData
