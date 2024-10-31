@@ -50,3 +50,10 @@ model News {
   updatedAt   DateTime     @updatedAt @db.Timestamp(6)
   deletedAt   DateTime?    @db.Timestamp(6)
 }
+
+model InvalidToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique(length: 255) @db.Text
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+}

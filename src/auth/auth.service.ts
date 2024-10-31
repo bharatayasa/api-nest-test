@@ -75,5 +75,23 @@ export class AuthService {
             },
             access_token
         };
-    }    
+    }
+
+    async logout(token: string): Promise<{ message: string }> {
+        const decodedToken = this.jwtService.decode(token) as any;
+        const expiresAt = new Date(decodedToken.exp * 1000);
+
+        await this.prisma.invalidToken.create({
+            data: { token, expiresAt },
+        });
+
+        return { message: 'Logged out successfully' };
+    }
+
+    async isTokenValid(token: string): Promise<boolean> {
+        const invalidToken = await this.prisma.invalidToken.findUnique({
+            where: { token },
+        });
+        return !invalidToken;
+    }
 }
