@@ -28,15 +28,15 @@ model User {
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt @db.Timestamp(6)
   deletedAt DateTime? @db.Timestamp(6)
-  news      News[]   @relation("UserNews")
 }
 
 model NewsCategory {
-  id         Int       @id @default(autoincrement())
-  name       String    @db.VarChar(50)
-  createdAt DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt DateTime   @updatedAt @db.Timestamp(6)
-  deletedAt DateTime?  @db.Timestamp(6)
+  id         Int        @id @default(autoincrement())
+  name       String     @db.VarChar(50)
+  createdAt  DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime   @updatedAt @db.Timestamp(6)
+  deletedAt  DateTime?  @db.Timestamp(6)
+
   news       News[]
 }
 
@@ -46,7 +46,6 @@ model News {
   content     String
   category    NewsCategory? @relation(fields: [categoryId], references: [id])
   categoryId  Int?
-  createdBy   User         @relation("UserNews", fields: [createdById], references: [id])
   createdById Int
   createdAt   DateTime     @default(now()) @db.Timestamp(6)
   updatedAt   DateTime     @updatedAt @db.Timestamp(6)
