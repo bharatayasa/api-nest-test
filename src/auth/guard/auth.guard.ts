@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate {
 
             return true;
         } catch (error) {
-            console.log('auth error - ', error.message);
             throw new UnauthorizedException(error.message || 'Invalid token or session expired! Please sign in');
         }
     }

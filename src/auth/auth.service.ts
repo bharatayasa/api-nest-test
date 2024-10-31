@@ -45,32 +45,35 @@ export class AuthService {
         return newUser;
     }
 
-    async login(email: string, password: string): Promise<{ access_token: string }> {
-
+    async login(email: string, password: string): Promise<{ access_token: string; user: any }> {
         const jwtSecret = this.configService.get<string>('JWT_SECRET');
     
         const user = await this.prisma.user.findFirst({
-            where: {
-                email: email,
-            },
+            where: { email: email },
         });
-
+    
         if (!user) {
             throw new UnauthorizedException('Invalid email or password');
         }
-
+    
         const isPasswordValid = await bcrypt.compare(password, user.password);
-
+    
         if (!isPasswordValid) {
             throw new UnauthorizedException('Invalid email or password');
         }
-
+    
         const payload = { id: user.id, email: user.email, role: user.role };
-
-            const access_token = this.jwtService.sign(payload, {
-                secret: jwtSecret,
-            });
-
-        return { access_token };
-    }
+        const access_token = this.jwtService.sign(payload, { secret: jwtSecret });
+    
+        return { 
+            user: {
+                id: user.id,
+                username: user.username,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            },
+            access_token
+        };
+    }    
 }

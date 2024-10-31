@@ -40,10 +40,11 @@ export class AuthController {
         @Res() res: Response
     ) {
         try {
-            const { access_token } = await this.authService.login(body.email, body.password);
+            const { access_token, user } = await this.authService.login(body.email, body.password);
             return res.status(HttpStatus.OK).json({
                 message: 'Login successful',
                 data: {
+                    user: user,
                     token: access_token
                 }
             });

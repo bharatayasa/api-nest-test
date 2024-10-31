@@ -20,31 +20,35 @@ enum Role {
 
 model User {
   id        Int      @id @default(autoincrement())
-  username  String   @unique
-  name      String
-  email     String
-  password  String
+  username  String   @unique @db.VarChar(50)
+  name      String   @db.VarChar(100)
+  email     String   @unique @db.VarChar(100)
+  password  String   @db.VarChar(255)
   role      Role     @default(user)
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @db.Timestamp(6)
+  deletedAt DateTime? @db.Timestamp(6)
   news      News[]   @relation("UserNews")
 }
 
 model NewsCategory {
   id         Int       @id @default(autoincrement())
-  name       String
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  name       String    @db.VarChar(50)
+  createdAt DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt DateTime   @updatedAt @db.Timestamp(6)
+  deletedAt DateTime?  @db.Timestamp(6)
   news       News[]
 }
 
 model News {
   id          Int          @id @default(autoincrement())
-  title       String
+  title       String       @db.VarChar(100)
   content     String
   category    NewsCategory? @relation(fields: [categoryId], references: [id])
   categoryId  Int?
   createdBy   User         @relation("UserNews", fields: [createdById], references: [id])
   createdById Int
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt   DateTime     @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime     @updatedAt @db.Timestamp(6)
+  deletedAt   DateTime?    @db.Timestamp(6)
 }

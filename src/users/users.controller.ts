@@ -30,9 +30,8 @@ export class UsersController {
                 email    : user.email,
                 role     : user.role, 
                 createdAt: moment(user.createdAt).format('YYYY-MM-DD'),
+                updatedAt: moment(user.updatedAt).format('YYYY-MM-DD'),
             }))
-
-            console.log(formatData);
 
             return res.status(HttpStatus.OK).json({
                 message: "Success to get data by admin",
@@ -67,6 +66,7 @@ export class UsersController {
                 email    : user.email,
                 role     : user.role, 
                 createdAt: moment(user.createdAt).format('YYYY-MM-DD'),
+                updatedAt: moment(user.updatedAt).format('YYYY-MM-DD'),
             }))
 
             return res.status(HttpStatus.OK).json({
@@ -104,6 +104,76 @@ export class UsersController {
         } catch (error) {
             return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
                 message: 'Failed to create data',
+                error: error.message,
+            });
+        }
+    }
+
+    @Put(':id')
+    @UseGuards(AuthGuard)
+    @Roles('admin')
+    async updateUser(
+        @Param('id') id: string,
+        @Body() Body: UserDto, 
+        @Res() res: Response,
+    ){
+        try {
+            const numericId = Number(id)
+
+            if (isNaN(numericId)) {
+                return res.status(HttpStatus.BAD_REQUEST).json({
+                    message: "Invalid ID format",
+                });
+            }
+
+            const updateUser = await this.usersService.updateUser(numericId, Body)
+
+            const formatData = {
+                id: updateUser.id, 
+                username: updateUser.username, 
+                name: updateUser.name, 
+                role: updateUser.role
+            }
+
+            return res.status(HttpStatus.OK).json({
+                message: "success to update user", 
+                data: formatData
+            })
+
+        } catch (error) {
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+                message: 'Failed to update data',
+                error: error.message,
+            });
+        }
+    }
+
+    @Delete(':id')
+    @UseGuards(AuthGuard)
+    @Roles('admin')
+    async deleteUser(@Param('id') id: string, @Res() res: Response) {
+        try {
+            const numericId = Number(id);
+
+            if (isNaN(numericId)) {
+                return res.status(HttpStatus.BAD_REQUEST).json({
+                    message: "Invalid ID format",
+                });
+            }
+
+            const deletedUser = await this.usersService.softDelete(numericId);
+
+            const formatData = {
+                deletedAt: moment(deletedUser.deletedAt).format('YYYY-MM-DD'),
+            };
+
+            return res.status(HttpStatus.OK).json({
+                message: "User deleted successfully", 
+                data: formatData
+            });
+        } catch (error) {
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+                message: 'failed to delete user',
                 error: error.message,
             });
         }

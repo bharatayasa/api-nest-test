@@ -9,13 +9,18 @@ export class UsersService {
     constructor(private prisma: PrismaService) {} 
 
     async findAll(): Promise<User[]> {
-        return this.prisma.user.findMany();
+        return this.prisma.user.findMany({
+            where: {
+                deletedAt: null
+            }
+        });
     }
 
     async findOne(id: number): Promise<User[]> {
         return this.prisma.user.findMany({
             where: {
-                id
+                id,
+                deletedAt: null
             }
         });
     }
@@ -36,5 +41,39 @@ export class UsersService {
     
         return newUser;
     }
-}
 
+    async updateUser(id: number, data: UserDto): Promise<User | null> {
+        const saltRounds = 10;
+    
+        if (data.password) {
+            data.password = await bcrypt.hash(data.password, saltRounds);
+        }
+    
+        try {
+            const updatedUser = await this.prisma.user.update({
+                where: { id },
+                data: {
+                    username: data.username,
+                    name: data.name,
+                    email: data.email,
+                    role: data.role,
+                    password: data.password,
+                },
+            });
+    
+            return updatedUser;
+        } catch (error) {
+            console.error('Error updating user:', error);
+            return null;
+        }
+    }
+
+    async softDelete(id: number): Promise<User>{
+        return this.prisma.user.update({
+            where: {id}, 
+            data: {
+                deletedAt: new Date()
+            } 
+        })
+    }
+}
