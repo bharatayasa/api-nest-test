@@ -10,6 +10,7 @@ import { UsersController } from './users/users.controller';
 import { CategoriesModule } from './categories/categories.module';
 import { CategoriesController } from './categories/categories.controller';
 import { CategoriesService } from './categories/categories.service';
+import { NewsModule } from './news/news.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CategoriesService } from './categories/categories.service';
     AuthModule,
     UsersModule,
     CategoriesModule,
+    NewsModule,
   ],
   controllers: [
     UsersController, 

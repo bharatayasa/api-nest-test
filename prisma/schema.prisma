@@ -46,7 +46,6 @@ model News {
   content     String
   category    NewsCategory? @relation(fields: [categoryId], references: [id])
   categoryId  Int?
-  createdById Int
   createdAt   DateTime     @default(now()) @db.Timestamp(6)
   updatedAt   DateTime     @updatedAt @db.Timestamp(6)
   deletedAt   DateTime?    @db.Timestamp(6)
