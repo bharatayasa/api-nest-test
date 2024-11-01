@@ -5,7 +5,10 @@ import { AuthGuard } from '../auth/guard/auth.guard';
 import { NewsService } from './news.service';
 import * as moment from 'moment';
 import { NewsDTO } from './newsDTO';
+import { ApiTags } from '@nestjs/swagger';
+import { GetAllNewsSwagger, GetNewsByIdSwagger, AddNewsSwagger, UpdateNewsSwagger, DeleteNewsSwagger } from './news.swagger';
 
+@ApiTags('news')
 @Controller('news')
 export class NewsController {
     constructor(private readonly news: NewsService){}
@@ -13,6 +16,7 @@ export class NewsController {
     @Get()
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @GetAllNewsSwagger()
     async getAllNews(@Res() res: Response){
         try {
             const news = await this.news.findAllNews()
@@ -48,6 +52,7 @@ export class NewsController {
     @Get(':id')
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @GetNewsByIdSwagger()
     async getNewsById(@Param('id') id: string, @Res() res: Response){
         try {
             const numericId = Number(id);
@@ -84,6 +89,7 @@ export class NewsController {
     @Post()
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @AddNewsSwagger()
     async addNews(@Res() res: Response, @Body() body: NewsDTO){
         try {
             const addNews = await this.news.addNews(body);
@@ -110,6 +116,7 @@ export class NewsController {
     @Put(':id')
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @UpdateNewsSwagger()
     async updateNews(
         @Param('id') id: string, 
         @Body() body: NewsDTO, 
@@ -142,6 +149,7 @@ export class NewsController {
     @Delete(':id')
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @DeleteNewsSwagger()
     async deleteNews(@Res() res: Response, @Param('id') id: string){
         try {
             const numericId = Number(id)

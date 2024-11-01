@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { NewsCategory } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
-import { categoriesDTO } from './categoriesDTO';
+import { CategoriesDTO } from './categoriesDTO';
 
 @Injectable()
 export class CategoriesService {
@@ -31,7 +31,7 @@ export class CategoriesService {
         return getById
     }
 
-    async createCategories(data: categoriesDTO): Promise<NewsCategory>{
+    async createCategories(data: CategoriesDTO): Promise<NewsCategory>{
         const categoryInput = await this.prisma.newsCategory.create({
             data: {
                 name: data.name
@@ -41,7 +41,7 @@ export class CategoriesService {
         return categoryInput
     }
 
-    async updateCategories(id: number, data: categoriesDTO): Promise<NewsCategory | null> {
+    async updateCategories(id: number, data: CategoriesDTO): Promise<NewsCategory | null> {
         const updateCategori = await this.prisma.newsCategory.update({
             where: { id },
             data: {

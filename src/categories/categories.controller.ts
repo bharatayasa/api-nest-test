@@ -4,8 +4,11 @@ import { Roles } from '../auth/guard/roles.decorator';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { Response } from 'express';
 import * as moment from 'moment';
-import { categoriesDTO } from './categoriesDTO';
+import { CategoriesDTO } from './categoriesDTO';
+import { ApiTags } from '@nestjs/swagger';
+import { GetAllCategoriesSwagger, GetCategoryByIdSwagger, AddCategoriesSwagger, UpdateCategoriesSwagger, DeleteCategoriesSwagger } from './categories.swagger';
 
+@ApiTags('categories')
 @Controller('categories')
 export class CategoriesController {
     constructor(private readonly categories: CategoriesService){}
@@ -13,6 +16,7 @@ export class CategoriesController {
     @Get()
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @GetAllCategoriesSwagger()
     async getAllCategories(@Res() res: Response){
         try {
             const categories = await this.categories.findAllCategries()
@@ -46,12 +50,11 @@ export class CategoriesController {
     @Get(':id')
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @GetCategoryByIdSwagger()
     async getCategoryId(@Param('id') id: string, @Res() res: Response) {
         try {
             const numericId = Number(id);
             const categori = await this.categories.findCategriesById(numericId)
-
-            console.log("ini adalah id yang dimasukkan ke param: ", numericId);
 
             if (!categori) {
                 return res.status(HttpStatus.NOT_FOUND).json({
@@ -82,7 +85,8 @@ export class CategoriesController {
     @Post()
     @UseGuards(AuthGuard)
     @Roles('admin')
-    async addCategories(@Body() body: categoriesDTO, @Res() res: Response){
+    @AddCategoriesSwagger()
+    async addCategories(@Body() body: CategoriesDTO, @Res() res: Response){
         try {
             const newCategories = await this.categories.createCategories(body)
 
@@ -105,9 +109,10 @@ export class CategoriesController {
     @Put(':id')
     @UseGuards(AuthGuard)
     @Roles('admin')
+    @UpdateCategoriesSwagger()
     async updateCategories(
         @Param('id') id: string,
-        @Body() body: categoriesDTO, 
+        @Body() body: CategoriesDTO, 
         @Res() res: Response, 
     ){
         const numericId = Number(id)
@@ -131,6 +136,7 @@ export class CategoriesController {
     @Delete(':id')
     @UseGuards(AuthGuard)
     @Roles('admin')
+    @DeleteCategoriesSwagger()
     async deleteCategories(@Param('id') id: string, @Res() res: Response){
         try {
             const numericId = Number(id)

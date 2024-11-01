@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Junior Backend Pre-Interview Task')
-    .setDescription('Deskripsi API Anda')
+    .setDescription('A simple API for a news portal application with the following specifications:')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

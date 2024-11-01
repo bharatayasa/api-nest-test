@@ -4,7 +4,10 @@ import { Response } from 'express';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { Roles } from '../auth/guard/roles.decorator';
 import * as moment from 'moment';
+import { ApiTags } from '@nestjs/swagger';
+import { GetNewsListSwagger, GetDetailNewsSwagger, GetNewsByCategorySwagger, SearchNewsSwagger} from './visitor.swagger';
 
+@ApiTags('visitor')
 @Controller('visitor')
 export class VisitorController {
     constructor( private readonly news: VisitorService ){}
@@ -12,6 +15,7 @@ export class VisitorController {
     @Get()
     @Roles('user')
     @UseGuards(AuthGuard)
+    @GetNewsListSwagger()
     async GetNewsList(@Res() res: Response){
         try {
             const news = await this.news.findNewsList()
@@ -45,6 +49,7 @@ export class VisitorController {
     @Get('/detail/:id')
     @Roles('user')
     @UseGuards(AuthGuard)
+    @GetDetailNewsSwagger()
     async GetDetailNews( @Res() res: Response, @Param('id') id: string){
         try {
             const numericId = Number(id)
@@ -81,6 +86,7 @@ export class VisitorController {
     @Get('/filterby/:category')
     @Roles('user')
     @UseGuards(AuthGuard)
+    @GetNewsByCategorySwagger()
     async GetNewsByCategory( @Res() res: Response, @Param('category') category: string ){
         try {
 
@@ -115,6 +121,7 @@ export class VisitorController {
     @Get('/search')
     @Roles('user')
     @UseGuards(AuthGuard)
+    @SearchNewsSwagger()
     async searchNews(
         @Body('keyword') keyword: string, 
         @Res() res: Response

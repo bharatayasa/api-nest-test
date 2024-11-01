@@ -4,8 +4,11 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseGu
 import * as moment from 'moment';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { Roles } from '../auth/guard/roles.decorator';
-import { UserDto } from './userDTO';
+import { UserDTO } from './userDTO';
+import { ApiTags } from '@nestjs/swagger';
+import { GetAllUserSwagger, GetUserByIdSwagger, AddUserSwagger, UpdateUserSwagger, DeleteUserSwagger } from './users.swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
@@ -13,6 +16,7 @@ export class UsersController {
     @Get()
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @GetAllUserSwagger()
     async getAllUsers(@Res() res: Response) {
         try {
             const users = await this.usersService.findAll()
@@ -50,6 +54,7 @@ export class UsersController {
     @Get(':id')
     @Roles('admin')
     @UseGuards(AuthGuard)
+    @GetUserByIdSwagger()
     async getUserById(@Param('id') id: string, @Res() res: Response){
         try {
             const numericId = Number(id);
@@ -89,7 +94,8 @@ export class UsersController {
     @Post()
     @UseGuards(AuthGuard)
     @Roles('admin')
-    async addUser(@Body() body: UserDto, @Res() res: Response){
+    @AddUserSwagger()
+    async addUser(@Body() body: UserDTO, @Res() res: Response){
         try {
             const newUser = await this.usersService.createUser(body)
 
@@ -116,9 +122,10 @@ export class UsersController {
     @Put(':id')
     @UseGuards(AuthGuard)
     @Roles('admin')
+    @UpdateUserSwagger()
     async updateUser(
         @Param('id') id: string,
-        @Body() Body: UserDto, 
+        @Body() Body: UserDTO, 
         @Res() res: Response,
     ){
         try {
@@ -155,6 +162,7 @@ export class UsersController {
     @Delete(':id')
     @UseGuards(AuthGuard)
     @Roles('admin')
+    @DeleteUserSwagger()
     async deleteUser(@Param('id') id: string, @Res() res: Response) {
         try {
             const numericId = Number(id);
