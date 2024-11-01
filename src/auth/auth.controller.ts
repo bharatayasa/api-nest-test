@@ -1,14 +1,18 @@
 import { Body, Controller, Post, Res, HttpStatus, Req,} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import * as moment from 'moment';
 import { AuthDTO } from './authDTO';
+import { RegisterSwagger, LoginSwagger, LogoutSwagger } from './auth.swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService){}
 
     @Post('register')
+    @RegisterSwagger()
     async register(
         @Body() body: AuthDTO,
         @Res() res: Response
@@ -36,9 +40,10 @@ export class AuthController {
     }
 
     @Post('login')
+    @LoginSwagger()
     async login(
         @Body() body: AuthDTO,
-        @Res() res: Response
+        @Res() res: Response,
     ) {
         try {
             const { access_token, user } = await this.authService.login(body.email, body.password);
@@ -58,7 +63,8 @@ export class AuthController {
     }
 
     @Post('logout')
-    async logout(@Req() req: Request, @Res() res: Response){
+    @LogoutSwagger()
+    async logout(@Req() req: Request, @Res() res: Response) {
         try {
             interface CustomHeaders extends Headers {
                 authorization?: string;
