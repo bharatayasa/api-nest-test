@@ -1,9 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
-
-class SearchNewsDTO {
-    keyword: string;
-}
+import { SearchNewsDTO } from './searchDTO'
 
 export function GetNewsListSwagger() {
     return applyDecorators(

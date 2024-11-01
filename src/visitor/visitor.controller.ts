@@ -1,5 +1,5 @@
 import { VisitorService } from './../visitor/visitor.service';
-import { Controller, Get, HttpStatus, Param, Res, UseGuards, Body } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Res, UseGuards, Body, Post } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthGuard } from '../auth/guard/auth.guard';
 import { Roles } from '../auth/guard/roles.decorator';
@@ -118,7 +118,7 @@ export class VisitorController {
         }
     }
 
-    @Get('/search')
+    @Post('/search')
     @Roles('user')
     @UseGuards(AuthGuard)
     @SearchNewsSwagger()
