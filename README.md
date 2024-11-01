@@ -22,41 +22,56 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+Berikut adalah file `README.md` yang telah dilengkapi dengan semua informasi yang relevan, termasuk bagian yang Anda berikan sebelumnya dan penjelasan tambahan mengenai setup, middleware, dan endpoint API:
+
+### File: `README.md`
+
+```markdown
+# API Documentation for News Application
+
+This document provides an overview of the API endpoints for the News Application built with NestJS.
+
 ## Installation
+
 **Clone the repository:**
 ```bash
-  git clone https://github.com/bharatayasa/api-nest-test.git
+git clone https://github.com/bharatayasa/api-nest-test.git
 ```
 
-## Project setup
+## Project Setup
 
+Navigate to the project directory and install dependencies:
 ```bash
-$ npm install
+cd api-nest-test
+npm install
 ```
 
-## Compile and run the project
+## Compile and Run the Project
+
+To start the project, use the following commands:
 
 ```bash
-# development
-$ npm run start
+# Development mode
+npm run start
 
-# watch mode
-$ npm run start:dev
+# Watch mode (auto-restart on file changes)
+npm run start:dev
 
-# production mode
-$ npm run start:prod
+# Production mode
+npm run start:prod
 ```
 
-## Run tests
+## Run Tests
 
+You can run unit tests using the command:
 ```bash
-# unit tests
-$ npm run test
-
+# Unit tests
+npm run test
 ```
 
 ## Middleware
-- **AccesToken:** Middleware for validating user authentication tokens.
+
+- **AccessToken:** Middleware for validating user authentication tokens.
 - **checkRole:** Middleware for checking user roles (e.g., 'admin', 'user').
 
 ## Routes
@@ -69,30 +84,38 @@ $ npm run test
 ### Users Data
 
 - `GET /users`: Retrieves all users data (admin only).
-- `GET /users/:id`: Retrieves a users by ID (admin only).
-- `POST /users`: Adds new users data (admin only).
-- `PUT /users/:id`: Updates users data by ID (admin only).
-- `DELETE /users/:id`: Deletes users data by ID (admin only).
+- `GET /users/:id`: Retrieves a user by ID (admin only).
+- `POST /users`: Adds new user data (admin only).
+- `PUT /users/:id`: Updates user data by ID (admin only).
+- `DELETE /users/:id`: Deletes user data by ID (admin only).
 
 ### Categories Data
 
 - `GET /categories`: Retrieves all categories data (admin only).
-- `GET /categories/:id`: Retrieves a categories by ID (admin only).
-- `POST /categories`: Adds new categories data (admin only).
-- `PUT /categories/:id`: Updates categories data by ID (admin only).
-- `DELETE /categories/:id`: Deletes categories data by ID (admin only).
+- `GET /categories/:id`: Retrieves a category by ID (admin only).
+- `POST /categories`: Adds new category data (admin only).
+- `PUT /categories/:id`: Updates category data by ID (admin only).
+- `DELETE /categories/:id`: Deletes category data by ID (admin only).
 
 ### News Data
 
 - `GET /news`: Retrieves all news data (admin only).
-- `GET /news/:id`: Retrieves a news by ID (admin only).
+- `GET /news/:id`: Retrieves a news item by ID (admin only).
 - `POST /news`: Adds new news data (admin only).
 - `PUT /news/:id`: Updates news data by ID (admin only).
 - `DELETE /news/:id`: Deletes news data by ID (admin only).
 
-### News Data
+### Visitor News Data
 
 - `GET /visitor`: Retrieves all news data (user only).
-- `GET /visitor/detail/:id`: Retrieves news detail data (user only).
+- `GET /visitor/detail/:id`: Retrieves news detail data by ID (user only).
 - `GET /visitor/filterby/:category`: Retrieves news by category (user only).
-- `POST /visitor/search`: Retrieves news by seach by request body (user only).
+- `POST /visitor/search`: Searches for news articles by keyword in the request body (user only).
+
+## Swagger Integration
+
+This API uses Swagger for documentation, which provides a user-friendly interface for interacting with the API and viewing endpoint details. 
+
+### Access Swagger UI
+
+Open your browser and navigate to `http://localhost:3000/api/docs` to view the Swagger UI and interact with the API.
