@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
 import * as dotenv from 'dotenv';
 import { ConfigService } from '@nestjs/config';
+import { AuthDTO } from './authDTO';
 dotenv.config();
 
 @Injectable()
@@ -28,8 +29,7 @@ export class AuthService {
         }
     }
 
-    async register(data: { username: string; name: string; email: string; password: any; 
-    }): Promise<User> {
+    async register(data: AuthDTO): Promise<User> {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
 
@@ -47,7 +47,6 @@ export class AuthService {
 
     async login(email: string, password: string): Promise<{ access_token: string; user: any }> {
         const jwtSecret = this.configService.get<string>('JWT_SECRET');
-    
         const user = await this.prisma.user.findFirst({
             where: { email: email },
         });
@@ -75,16 +74,5 @@ export class AuthService {
             },
             access_token
         };
-    }
-
-    async logout(token: string): Promise<{ message: string }> {
-        const decodedToken = this.jwtService.decode(token) as any;
-        const expiresAt = new Date(decodedToken.exp * 1000);
-
-        await this.prisma.invalidToken.create({
-            data: { token, expiresAt },
-        });
-
-        return { message: 'Logged out successfully' };
     }
 }

@@ -2,6 +2,7 @@ import { Body, Controller, Post, Res, HttpStatus, Req, UseGuards } from '@nestjs
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import * as moment from 'moment';
+import { AuthDTO } from './authDTO';
 
 @Controller('auth')
 export class AuthController {
@@ -9,7 +10,7 @@ export class AuthController {
 
     @Post('register')
     async register(
-        @Body() body: { username: string; name: string; email: string; password: any },
+        @Body() body: AuthDTO,
         @Res() res: Response
     ) {
         try {
@@ -36,7 +37,7 @@ export class AuthController {
 
     @Post('login')
     async login(
-        @Body() body: { email: string; password: string },
+        @Body() body: AuthDTO,
         @Res() res: Response
     ) {
         try {
