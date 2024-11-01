@@ -2,7 +2,6 @@ import { Body, Controller, Post, Res, HttpStatus, Req, UseGuards } from '@nestjs
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import * as moment from 'moment';
-import { AuthGuard } from '../auth/guard/auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -55,12 +54,5 @@ export class AuthController {
                 error: error.message,
             });
         }
-    }
-
-    @Post('logout')
-    @UseGuards(AuthGuard)
-    async logout(@Req() req: Request) {
-        const token = req.headers['authorization'].replace('Bearer ', '');
-        return this.authService.logout(token);
     }
 }

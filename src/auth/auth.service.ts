@@ -87,11 +87,4 @@ export class AuthService {
 
         return { message: 'Logged out successfully' };
     }
-
-    async isTokenValid(token: string): Promise<boolean> {
-        const invalidToken = await this.prisma.invalidToken.findUnique({
-            where: { token },
-        });
-        return !invalidToken;
-    }
 }
