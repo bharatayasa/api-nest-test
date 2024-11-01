@@ -24,16 +24,9 @@
 
 Berikut adalah file `README.md` yang telah dilengkapi dengan semua informasi yang relevan, termasuk bagian yang Anda berikan sebelumnya dan penjelasan tambahan mengenai setup, middleware, dan endpoint API:
 
-### File: `README.md`
-
-```markdown
-# API Documentation for News Application
-
-This document provides an overview of the API endpoints for the News Application built with NestJS.
 
 ## Installation
 
-**Clone the repository:**
 ```bash
 git clone https://github.com/bharatayasa/api-nest-test.git
 ```
