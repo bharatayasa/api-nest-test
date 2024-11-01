@@ -95,4 +95,4 @@ $ npm run test
 - `GET /visitor`: Retrieves all news data (user only).
 - `GET /visitor/detail/:id`: Retrieves news detail data (user only).
 - `GET /visitor/filterby/:category`: Retrieves news by category (user only).
-- `GET /visitor/search`: Retrieves news by seach by request body (user only).
+- `POST /visitor/search`: Retrieves news by seach by request body (user only).
