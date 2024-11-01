@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res, HttpStatus, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Res, HttpStatus, Req,} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import * as moment from 'moment';
@@ -52,6 +52,38 @@ export class AuthController {
         } catch (error) {
             return res.status(HttpStatus.UNAUTHORIZED).json({
                 message: 'Login failed',
+                error: error.message,
+            });
+        }
+    }
+
+    @Post('logout')
+    async logout(@Req() req: Request, @Res() res: Response){
+        try {
+            interface CustomHeaders extends Headers {
+                authorization?: string;
+            }
+            const token = (req.headers as CustomHeaders).authorization?.split(' ')[1];
+            if (!token) {
+                return res.status(HttpStatus.BAD_REQUEST).json({
+                    message: 'Token is missing',
+                });
+            }
+
+            const blacklistData = await this.authService.logout(token)
+
+            const formatLogout = {
+                logoutAt : moment(blacklistData.createdAt).format('YYYY-MM-DD'),
+            }
+
+            return res.status(HttpStatus.OK).json({
+                message: "Logout success", 
+                data: formatLogout
+            })
+
+        } catch (error) {
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                message: 'Logout failed',
                 error: error.message,
             });
         }

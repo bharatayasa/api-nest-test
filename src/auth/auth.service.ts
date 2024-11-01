@@ -21,6 +21,15 @@ export class AuthService {
         if (!secret) {
             throw new Error('JWT_SECRET is missing or undefined');
         }
+
+        const blacklistedToken = await this.prisma.blacklistedToken.findUnique({
+            where: { token },
+        });
+
+        if (blacklistedToken) {
+            throw new UnauthorizedException('Token has been blacklisted');
+        }
+
         try {
             const decoded = this.jwtService.verify(token, { secret });
             return decoded;
@@ -74,5 +83,24 @@ export class AuthService {
             },
             access_token
         };
+    }
+
+    async logout(token: string): Promise<{ id: number; createdAt: Date;}> {
+        const existingToken = await this.prisma.blacklistedToken.findUnique({
+            where: { token },
+        });
+    
+        if (existingToken) {
+            return {
+                id: existingToken.id, 
+                createdAt: existingToken.createdAt 
+            };
+        }
+    
+        const blacklistedToken = await this.prisma.blacklistedToken.create({
+            data: { token },
+        });
+    
+        return blacklistedToken
     }
 }
