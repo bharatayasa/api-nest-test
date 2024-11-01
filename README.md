@@ -25,7 +25,7 @@
 ## Installation
 **Clone the repository:**
 ```bash
-  git clone https://github.com/bharatayasa/chilitify-backend.git
+  git clone https://github.com/bharatayasa/api-nest-test.git
 ```
 
 ## Project setup
