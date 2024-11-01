@@ -22,9 +22,11 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Installation
+**Clone the repository:**
+```bash
+  git clone https://github.com/bharatayasa/chilitify-backend.git
+```
 
 ## Project setup
 
@@ -53,9 +55,44 @@ $ npm run test
 
 ```
 
-## Complate Documentation
+## Middleware
+- **AccesToken:** Middleware for validating user authentication tokens.
+- **checkRole:** Middleware for checking user roles (e.g., 'admin', 'user').
 
-```bash
-# unit tests
-$ /api/docs
-```
+## Routes
+
+### User Authentication
+
+- `POST /auth/register`: Registers a new user.
+- `POST /auth/login`: Logs in an existing user.
+
+### Users Data
+
+- `GET /users`: Retrieves all users data (admin only).
+- `GET /users/:id`: Retrieves a users by ID (admin only).
+- `POST /users`: Adds new users data (admin only).
+- `PUT /users/:id`: Updates users data by ID (admin only).
+- `DELETE /users/:id`: Deletes users data by ID (admin only).
+
+### Categories Data
+
+- `GET /categories`: Retrieves all categories data (admin only).
+- `GET /categories/:id`: Retrieves a categories by ID (admin only).
+- `POST /categories`: Adds new categories data (admin only).
+- `PUT /categories/:id`: Updates categories data by ID (admin only).
+- `DELETE /categories/:id`: Deletes categories data by ID (admin only).
+
+### News Data
+
+- `GET /news`: Retrieves all news data (admin only).
+- `GET /news/:id`: Retrieves a news by ID (admin only).
+- `POST /news`: Adds new news data (admin only).
+- `PUT /news/:id`: Updates news data by ID (admin only).
+- `DELETE /news/:id`: Deletes news data by ID (admin only).
+
+### News Data
+
+- `GET /visitor`: Retrieves all news data (user only).
+- `GET /visitor/detail/:id`: Retrieves news detail data (user only).
+- `GET /visitor/filterby/:category`: Retrieves news by category (user only).
+- `GET /visitor/search`: Retrieves news by seach by request body (user only).
