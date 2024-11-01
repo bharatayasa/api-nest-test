@@ -11,6 +11,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { CategoriesController } from './categories/categories.controller';
 import { CategoriesService } from './categories/categories.service';
 import { NewsModule } from './news/news.module';
+import { VisitorModule } from './visitor/visitor.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { NewsModule } from './news/news.module';
     UsersModule,
     CategoriesModule,
     NewsModule,
+    VisitorModule,
   ],
   controllers: [
     UsersController, 
