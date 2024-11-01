@@ -12,6 +12,9 @@ export class UsersService {
         const findAllUsers = this.prisma.user.findMany({
             where: {
                 deletedAt: null
+            },
+            orderBy: {
+                id: 'desc'
             }
         });
 

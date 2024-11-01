@@ -11,6 +11,9 @@ export class CategoriesService {
         const getAll =  this.prisma.newsCategory.findMany({
             where: {
                 deletedAt: null
+            }, 
+            orderBy: {
+                id: 'desc'
             }
         })
 

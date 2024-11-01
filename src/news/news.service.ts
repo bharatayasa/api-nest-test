@@ -15,6 +15,9 @@ export class NewsService {
             include: { 
                 category: true
             },
+            orderBy: {
+                id: 'desc'
+            }
         });
     
         return getAllNews;

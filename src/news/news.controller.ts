@@ -25,6 +25,7 @@ export class NewsController {
             }
 
             const formatData = news.map(item => ({
+                id        : item.id,
                 title     : item.title,
                 content   : item.content,
                 category  : item.category.name,
@@ -60,6 +61,7 @@ export class NewsController {
             }
             
             const formatData = news.map(item => ({
+                id        : item.id,
                 title     : item.title,
                 content   : item.content,
                 category  : item.category.name,
@@ -87,6 +89,7 @@ export class NewsController {
             const addNews = await this.news.addNews(body);
 
             const formData = {
+                id         : addNews.id, 
                 title      : addNews.title, 
                 content    : addNews.content, 
                 categoryId : addNews.categoryId
@@ -117,6 +120,7 @@ export class NewsController {
             const updateNews = await this.news.updateNews(numbericId, body)
 
             const formData = {
+                id         : updateNews.id, 
                 title      : updateNews.title, 
                 content    : updateNews.content, 
                 categoryId : updateNews.categoryId

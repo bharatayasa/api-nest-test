@@ -25,6 +25,7 @@ export class UsersController {
             }
 
             const formatData = users.map(user => ({
+                id       : user.id,
                 username : user.username, 
                 name     : user.name,
                 email    : user.email,
@@ -63,6 +64,7 @@ export class UsersController {
             }
 
             const formatData = {
+                id       : users[0].id, 
                 username : users[0].username, 
                 name     : users[0].name,
                 email    : users[0].email,
