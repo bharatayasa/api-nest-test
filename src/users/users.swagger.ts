@@ -4,7 +4,7 @@ import { UserDTO } from './userDTO';
 
 export function GetAllUserSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get all users' }),
+        ApiOperation({ summary: 'Get all users (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -60,7 +60,7 @@ export function GetAllUserSwagger() {
 
 export function GetUserByIdSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get user by ID' }),
+        ApiOperation({ summary: 'Get user by ID (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -105,7 +105,7 @@ export function GetUserByIdSwagger() {
 
 export function AddUserSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Create a new user' }),
+        ApiOperation({ summary: 'Create a new user (role admin)' }),
         ApiBearerAuth(),
         ApiBody({
             type: UserDTO,
@@ -141,7 +141,7 @@ export function AddUserSwagger() {
 
 export function UpdateUserSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Update an existing user' }),
+        ApiOperation({ summary: 'Update an existing user (role admin)' }),
         ApiBearerAuth(),
         ApiBody({
             type: UserDTO,
@@ -196,7 +196,7 @@ export function UpdateUserSwagger() {
 
 export function DeleteUserSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Delete a user' }),
+        ApiOperation({ summary: 'Delete a user (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,

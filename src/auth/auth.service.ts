@@ -6,6 +6,7 @@ import { User } from '@prisma/client';
 import * as dotenv from 'dotenv';
 import { ConfigService } from '@nestjs/config';
 import { AuthDTO } from './authDTO';
+import { LoginDTO } from './loginDTO';
 dotenv.config();
 
 @Injectable()
@@ -54,17 +55,19 @@ export class AuthService {
         return newUser;
     }
 
-    async login(email: string, password: string): Promise<{ access_token: string; user: any }> {
+    async login(data: LoginDTO): Promise<{ access_token: string; user: any }> {
         const jwtSecret = this.configService.get<string>('JWT_SECRET');
         const user = await this.prisma.user.findFirst({
-            where: { email: email },
+            where: { 
+                email: data.email 
+            },
         });
     
         if (!user) {
             throw new UnauthorizedException('Invalid email or password');
         }
     
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+        const isPasswordValid = await bcrypt.compare(data.password, user.password);
     
         if (!isPasswordValid) {
             throw new UnauthorizedException('Invalid email or password');

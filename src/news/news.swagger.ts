@@ -4,7 +4,7 @@ import { NewsDTO } from './newsDTO';
 
 export function GetAllNewsSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get all news' }),
+        ApiOperation({ summary: 'Get all news (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -57,7 +57,7 @@ export function GetAllNewsSwagger() {
 
 export function GetNewsByIdSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get news by ID' }),
+        ApiOperation({ summary: 'Get news by ID (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -100,7 +100,7 @@ export function GetNewsByIdSwagger() {
 
 export function AddNewsSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Add a new news item' }),
+        ApiOperation({ summary: 'Add a new news item (role admin)' }),
         ApiBearerAuth(),
         ApiBody({
             description: 'News data to add',
@@ -136,7 +136,7 @@ export function AddNewsSwagger() {
 
 export function UpdateNewsSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Update news' }),
+        ApiOperation({ summary: 'Update news (role admin)' }),
         ApiBearerAuth(),
         ApiBody({
             description: 'Updated news data',
@@ -181,7 +181,7 @@ export function UpdateNewsSwagger() {
 
 export function DeleteNewsSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Delete news' }),
+        ApiOperation({ summary: 'Delete news (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,

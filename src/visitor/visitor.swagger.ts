@@ -4,7 +4,7 @@ import { SearchNewsDTO } from './searchDTO'
 
 export function GetNewsListSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get all news' }),
+        ApiOperation({ summary: 'Get all news (role user)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -48,7 +48,7 @@ export function GetNewsListSwagger() {
 
 export function GetDetailNewsSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get news detail by ID' }),
+        ApiOperation({ summary: 'Get news detail by ID (role user)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -91,7 +91,7 @@ export function GetDetailNewsSwagger() {
 
 export function GetNewsByCategorySwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get news by category' }),
+        ApiOperation({ summary: 'Get news by category (role user)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -135,7 +135,7 @@ export function GetNewsByCategorySwagger() {
 
 export function SearchNewsSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Search news by keyword' }),
+        ApiOperation({ summary: 'Search news by keyword (role user)' }),
         ApiBearerAuth(),
         ApiBody({
             type: SearchNewsDTO

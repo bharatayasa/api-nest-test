@@ -5,8 +5,9 @@ import { Response } from 'express';
 import * as moment from 'moment';
 import { AuthDTO } from './authDTO';
 import { RegisterSwagger, LoginSwagger, LogoutSwagger } from './auth.swagger';
+import { LoginDTO } from './loginDTO';
 
-@ApiTags('Auth')
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService){}
@@ -42,11 +43,11 @@ export class AuthController {
     @Post('login')
     @LoginSwagger()
     async login(
-        @Body() body: AuthDTO,
+        @Body() body: LoginDTO,
         @Res() res: Response,
     ) {
         try {
-            const { access_token, user } = await this.authService.login(body.email, body.password);
+            const { access_token, user } = await this.authService.login(body);
             return res.status(HttpStatus.OK).json({
                 message: 'Login successful',
                 data: {

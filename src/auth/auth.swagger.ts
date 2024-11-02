@@ -1,6 +1,7 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthDTO } from './authDTO';
+import { LoginDTO } from './loginDTO';
 
 export function RegisterSwagger() {
     return applyDecorators(
@@ -49,12 +50,12 @@ export function LoginSwagger() {
     return applyDecorators(
         ApiOperation({ summary: 'User login' }),
         ApiBody({
-            type: AuthDTO,
+            type: LoginDTO,
             description: 'User login credentials',
             schema: {
                 example: {
-                    email: 'johndoe@example.com',
-                    password: 'password123'
+                    email: 'bhar@example.com1',
+                    password: '123'
                 }
             }
         }),

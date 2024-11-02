@@ -4,7 +4,7 @@ import { CategoriesDTO } from './categoriesDTO';
 
 export function GetAllCategoriesSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get all categories' }),
+        ApiOperation({ summary: 'Get all categories (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -53,7 +53,7 @@ export function GetAllCategoriesSwagger() {
 
 export function GetCategoryByIdSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Get category by ID' }),
+        ApiOperation({ summary: 'Get category by ID (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
@@ -94,7 +94,7 @@ export function GetCategoryByIdSwagger() {
 
 export function AddCategoriesSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Create new category' }),
+        ApiOperation({ summary: 'Create new category (role admin)' }),
         ApiBearerAuth(),
         ApiBody({ type: CategoriesDTO }),
         ApiResponse({
@@ -124,7 +124,7 @@ export function AddCategoriesSwagger() {
 
 export function UpdateCategoriesSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Update category' }),
+        ApiOperation({ summary: 'Update category (role admin)' }),
         ApiBearerAuth(),
         ApiBody({ type: CategoriesDTO }),
         ApiResponse({
@@ -163,7 +163,7 @@ export function UpdateCategoriesSwagger() {
 
 export function DeleteCategoriesSwagger() {
     return applyDecorators(
-        ApiOperation({ summary: 'Delete category' }),
+        ApiOperation({ summary: 'Delete category (role admin)' }),
         ApiBearerAuth(),
         ApiResponse({
             status: 200,
