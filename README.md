@@ -38,6 +38,10 @@ Navigate to the project directory and install dependencies:
 cd api-nest-test
 npm install
 ```
+## Swagger Integration
+
+This API uses Swagger for documentation, which provides a user-friendly interface for interacting with the API and viewing endpoint details. 
+
 ### Access Swagger UI
 
 Open your browser and navigate to `http://localhost:3000/api/docs` to view the Swagger UI and interact with the local API.
@@ -109,8 +113,3 @@ npm run test
 - `GET /visitor/detail/:id`: Retrieves news detail data by ID (user only).
 - `GET /visitor/filterby/:category`: Retrieves news by category (user only).
 - `POST /visitor/search`: Searches for news articles by keyword in the request body (user only).
-
-## Swagger Integration
-
-This API uses Swagger for documentation, which provides a user-friendly interface for interacting with the API and viewing endpoint details. 
-
