@@ -38,6 +38,11 @@ Navigate to the project directory and install dependencies:
 cd api-nest-test
 npm install
 ```
+### Access Swagger UI
+
+Open your browser and navigate to `http://localhost:3000/api/docs` to view the Swagger UI and interact with the local API.
+
+Open your browser and navigate to `https://pre-interview-nestjs-821675735524.asia-southeast2.run.app/api/docs` to view the Swagger UI and interact with the deployed API.
 
 ## Compile and Run the Project
 
@@ -109,6 +114,3 @@ npm run test
 
 This API uses Swagger for documentation, which provides a user-friendly interface for interacting with the API and viewing endpoint details. 
 
-### Access Swagger UI
-
-Open your browser and navigate to `http://localhost:3000/api/docs` to view the Swagger UI and interact with the API.
